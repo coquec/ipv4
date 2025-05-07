@@ -1,0 +1,30 @@
+* ipv4
+
+** What is it?
+
+ipv4 is an Emacs package with elisp functions to manipulate IPv4 network
+addresses.
+
+** How to install
+
+The package is available as source code in a Git repository.  You can add the
+following lines to your init file for Emacs 29.x or 30.x versions:
+
+#+NAME: Init code to install the package with use-package
+#+BEGIN_SRC emacs-lisp :results output none
+  (let ((ipv4-repo "https://github.com/coquec/ipv4.git"))
+    (if (< emacs-major-version 30)
+        (package-vc-install ipv4-repo :last-release)
+      (use-package ipv4
+        :vc
+        (:url ipv4-repo :branch "main" :rev :newest))))
+  (use-package ipv4
+    :vc
+    (:url "https://github.com/coquec/ipv4.git" :branch "main" :rev :newest))
+#+END_SRC
+
+In older ~use-package~ versions that don't support the ~:vc~ parameter, you
+should clone the repository and load the ipv4.el file manually.
+
+** How to use it
+
