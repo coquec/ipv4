@@ -64,5 +64,3 @@
   (should-not (ipv4-integer-mask-p nil))
   (should-not (ipv4-integer-mask-p -1))
   (should-not (ipv4-integer-mask-p 33)))
-
-(ert "test-ipv4-*")
