@@ -5,7 +5,7 @@
 
 ;; Tests for IPv4 addresses.
 (ert-deftest test-ipv4-valid-strings-to-ints ()
-  (should (equal 0 (ipv4-to-int "0.0.0.0")))
+  (should (equal 0 (ipv4-string-to-int "0.0.0.0")))
   (should (equal #x0A8C1CFD (ipv4-string-to-int "10.140.28.253")))
   (should (equal #xC0A88001 (ipv4-string-to-int "192.168.128.1")))
   (should (equal #xFFFFFFFF (ipv4-string-to-int "255.255.255.255"))))
