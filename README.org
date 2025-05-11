@@ -2,8 +2,7 @@
 
 ** What is it?
 
-ipv4 is an Emacs package with elisp functions to manipulate IPv4 network
-addresses.
+ipv4 is an Emacs package with functions to manipulate IPv4 network addresses.
 
 ** How to install
 
@@ -28,3 +27,25 @@ should clone the repository and load the ipv4.el file manually.
 
 ** How to use it
 
+The library supports IPv4 addresses in strings for hosts ("192.168.13.10"), or
+networks in CIDR format ("10.141.92.13/24").  It provides functions to convert
+them to/from integers, as shown in the following examples:
+
+#+NAME: Convert an IP address to an integer
+#+BEGIN_SRC emacs-lisp :results output none
+  (message "#x%x" (ipv4-string-to-int "192.168.13.10"))
+#+END_SRC
+
+#+NAME: Show information from a network in CIDR format
+#+BEGIN_SRC emacs-lisp :results output none
+  (let ((net (ipv4-cidr-to-cons "192.168.13.10/23")))
+    (message
+     "Network: %s/%d\nMask: %s\nBroadcast: %s\nWildcard: %s\nHost count: %d\nFirst host: %s"
+     (ipv4-int-to-string (ipv4-network net))
+     (cdr net)
+     (ipv4-int-to-string (ipv4-cidr-to-mask (cdr net)))
+     (ipv4-int-to-string (ipv4-broadcast net))
+     (ipv4-int-to-string (ipv4-cidr-to-wildcard (cdr net)))
+     (ipv4-host-count net)
+     (ipv4-int-to-string (ipv4-first-host net))))
+#+END_SRC
