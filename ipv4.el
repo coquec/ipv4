@@ -36,7 +36,7 @@
   "Convert the IPv4 address in the string IP to an integer.
 
 Return NIL if IP is an invalid IPv4 address."
-  (when (ipv4-valid ip)
+  (when (ipv4-valid-p ip)
     (let ((parts (mapcar #'string-to-number (split-string ip "\\." t))))
       (+ (ash (nth 0 parts) 24)
          (ash (nth 1 parts) 16)
@@ -53,7 +53,7 @@ Return NIL if IP is an invalid IPv4 address."
           (logand ip #xFF)))
 
 ;;;###autoload
-(defun ipv4-valid (ip)
+(defun ipv4-valid-p (ip)
   "Return the string IP if it is a valid IPv4 address.
 
 Return nil otherwise."
