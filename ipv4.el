@@ -29,6 +29,14 @@
 ;;; Code:
 
 
+;; Constants.
+(defconst ipv4-private-networks
+  '((#x0A000000 . 8)
+    (#xAC100000 . 12)
+    (#xC0A80000 . 16))
+  "Addresses of private networks according to  RFC-1918.")
+
+
 ;; IPv4 functions.
 
 (defun ipv4-string-to-int (ip)
@@ -58,6 +66,32 @@ Return nil otherwise."
          "^\\([1-9]?[0-9]\\|1[0-9][0-9]\\|2[0-4][0-9]\\|25[0-5]\\)\\(\\.\\([1-9]?[0-9]\\|1[0-9][0-9]\\|2[0-4][0-9]\\|25[0-5]\\)\\)\\{3\\}$"
          ip)
     ip))
+
+(defun ipv4-private-p (ip)
+  "Check if IP is in any of the `ipv4-private-networks'.
+
+Return the private network where IP is located, even for network or
+broadcast addresses, or nil if it is not a private address."
+  (seq-find (lambda (cons)(ipv4-ip-in-network ip cons)) 
+            ipv4-private-networks))
+
+(defun ipv4-host-in-network (ip cons)
+  "Return t if IP of a host pertains to the network in CONS.
+
+The network and the broadcast addresses return nil.
+
+See also `ipv4-ip-in-network'."
+  (and (<= ip (ipv4-last-host cons))
+       (>= ip (ipv4-first-host cons))))
+
+(defun ipv4-ip-in-network (ip cons)
+  "Return t if IP pertains to the network in CONS.
+
+The network and the broadcast addresses also return t.
+
+See also `ipv4-host-in-network'."
+  (and (<= ip (ipv4-raw-broadcast cons))
+       (>= ip (ipv4-raw-network cons))))
 
 
 ;; CIDR functions.
