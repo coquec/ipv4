@@ -211,7 +211,7 @@ its binary representation grouped to the left, with no 0s between them."
 
 ;;;###autoload
 (defun ipv4-cidr-to-wildcard (cidr)
-  "Return the wildcard corresponfig to a valid CIDR integer mask.
+  "Return the wildcard corresponding to a valid CIDR integer mask.
 
 Return nil if CIDR is not a valid mask length."
   (let ((mask (ipv4-cidr-to-mask cidr)))
