@@ -31,7 +31,6 @@
 
 ;; IPv4 functions.
 
-;;;###autoload
 (defun ipv4-string-to-int (ip)
   "Convert the IPv4 address in the string IP to an integer.
 
@@ -43,7 +42,6 @@ Return NIL if IP is an invalid IPv4 address."
          (ash (nth 2 parts) 8)
          (nth 3 parts)))))
 
-;;;###autoload
 (defun ipv4-int-to-string (ip)
   "Convert an integer IP to an IPv4 address string."
   (format "%d.%d.%d.%d"
@@ -52,7 +50,6 @@ Return NIL if IP is an invalid IPv4 address."
           (logand (ash ip -8) #xFF)
           (logand ip #xFF)))
 
-;;;###autoload
 (defun ipv4-valid-p (ip)
   "Return the string IP if it is a valid IPv4 address.
 
@@ -65,7 +62,6 @@ Return nil otherwise."
 
 ;; CIDR functions.
 
-;;;###autoload
 (defun ipv4-cidr-to-cons (cidr)
   "Extract network address and mask from a string in CIDR format.
 
@@ -81,7 +77,6 @@ Return NIL if CIDR has an invalid format."
         (when (and ip (ipv4-cidr-mask-p mask))
           (cons ip mask))))))
 
-;;;###autoload
 (defun ipv4-cons-to-cidr (cons)
   "Produce a string in CIDR format from a cons with a network and a mask.
 
@@ -96,7 +91,6 @@ Return NIL if the IPv4 address or the mask are invalid."
       (when (and (integerp ip) (ipv4-cidr-mask-p mask))
         (concat (ipv4-int-to-string ip) "/" (number-to-string mask))))))
 
-;;;###autoload
 (defun ipv4-network (cons)
   "Return the network address in CONS as an integer.
 
@@ -108,7 +102,6 @@ The expected values in CONS are described in `ipv4-cidr-to-cons'."
   (when (< (cdr cons) 31)
     (ipv4-raw-network cons)))
 
-;;;###autoload
 (defun ipv4-raw-network (cons)
   "Return the network address in CONS as an integer.
 
@@ -120,7 +113,6 @@ The returned mask can be converted to a string such as \"255.255.255.0\"
 with `ipv4-int-to-string'."
   (logand (car cons) (ipv4-cidr-to-mask (cdr cons))))
 
-;;;###autoload
 (defun ipv4-broadcast (cons)
   "Return the network broadcast address in CONS as an integer.
 
@@ -135,7 +127,6 @@ with `ipv4-int-to-string'."
   (when (< (cdr cons) 31)
     (ipv4-raw-broadcast cons)))
 
-;;;###autoload
 (defun ipv4-raw-broadcast (cons)
   "Return the network broadcast address in CONS as an integer.
 
@@ -148,7 +139,6 @@ with `ipv4-int-to-string'."
   (+ (ipv4-raw-network cons)
      (logand #xFFFFFFFF (lognot (ipv4-cidr-to-mask (cdr cons))))))
 
-;;;###autoload
 (defun ipv4-host-count (cons)
   "Return the number of hosts in the network in CONS.
 
@@ -160,7 +150,6 @@ The expected values in CONS are described in `ipv4-cidr-to-cons'."
         (t
          (- (expt 2 (- 32 (cdr cons))) 2))))
 
-;;;###autoload
 (defun ipv4-first-host (cons)
   "Return the IP address of the first host in the network in CONS.
 
@@ -169,7 +158,6 @@ The expected values in CONS are described in `ipv4-cidr-to-cons'."
       (ipv4-raw-network cons)
     (+ 1 (ipv4-raw-network cons))))
 
-;;;###autoload
 (defun ipv4-last-host (cons)
   "Return the IP address of the last host in the network in CONS.
 
@@ -181,14 +169,12 @@ The expected values in CONS are described in `ipv4-cidr-to-cons'."
 
 ;; Mask functions.
 
-;;;###autoload
 (defun ipv4-cidr-mask-p (cidr)
   "Return t if CIDR is an integer between 0 and 32."
   (and (integerp cidr)
        (>= cidr 0)
        (<= cidr 32)))
 
-;;;###autoload
 (defun ipv4-cidr-to-mask (cidr)
   "Convert a mask length CIDR into a integer mask.
 
@@ -196,7 +182,6 @@ Return nil if CIDR is not a valid mask length."
   (when (ipv4-cidr-mask-p cidr)
     (logand (ash -4294967296 (- cidr)) #xFFFFFFFF)))
 
-;;;###autoload
 (defun ipv4-mask-p (mask)
   "Return t if MASK is a valid integer mask.
 
@@ -209,7 +194,6 @@ its binary representation grouped to the left, with no 0s between them."
                 (= #x80000000 (logand mask #x80000000) )
                 (= 2 (logcount (logxor mask (ash mask 1))))))))
 
-;;;###autoload
 (defun ipv4-cidr-to-wildcard (cidr)
   "Return the wildcard corresponding to a valid CIDR integer mask.
 
