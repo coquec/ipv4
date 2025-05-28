@@ -3,7 +3,7 @@
 ;; Copyright (C) 2025 Coque Couto
 
 ;; Author: Coque Couto <coque.couto at gmail.com>
-;; Version: 0.2
+;; Version: 0.3
 ;; Package-Requires: ((emacs))
 ;; Keywords: comm lisp tools
 ;; URL: https://github.com/coquec/ipv4
