@@ -23,6 +23,24 @@
   (should (equal "192.168.128.1" (ipv4-int-to-string #xC0A88001)))
   (should (equal  "255.255.255.255" (ipv4-int-to-string #xFFFFFFFF))))
 
+(ert-deftest test-ipv4-valid-private ()
+  (should (ipv4-private-p (ipv4-string-to-int "10.0.0.0")))
+  (should (ipv4-private-p (ipv4-string-to-int "10.255.255.255")))
+  (should (ipv4-private-p (ipv4-string-to-int "172.16.0.0")))
+  (should (ipv4-private-p (ipv4-string-to-int "172.31.255.255")))
+  (should (ipv4-private-p (ipv4-string-to-int "192.168.0.0")))
+  (should (ipv4-private-p (ipv4-string-to-int "192.168.255.255"))))
+
+(ert-deftest test-ipv4-invalid-private ()
+  (should-not (ipv4-private-p (ipv4-string-to-int "0.0.0.0")))
+  (should-not (ipv4-private-p (ipv4-string-to-int "9.255.255.255")))
+  (should-not (ipv4-private-p (ipv4-string-to-int "11.0.0.0")))
+  (should-not (ipv4-private-p (ipv4-string-to-int "172.15.255.255")))
+  (should-not (ipv4-private-p (ipv4-string-to-int "172.32.0.0")))
+  (should-not (ipv4-private-p (ipv4-string-to-int "192.167.255.255")))
+  (should-not (ipv4-private-p (ipv4-string-to-int "192.169.0.0")))
+  (should-not (ipv4-private-p (ipv4-string-to-int "255.255.255.255"))))
+
 
 ;; Tests for CIDR functions.
 (ert-deftest test-ipv4-valid-cidrs-to-cons ()
