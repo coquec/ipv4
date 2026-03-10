@@ -238,4 +238,8 @@ Return nil if CIDR is not a valid mask length."
 
 (provide 'ipv4)
 
+;; Local Variables:
+;; lexical-binding: t
+;; End:
+
 ;;; ipv4.el ends here
