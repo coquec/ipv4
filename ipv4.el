@@ -1,4 +1,4 @@
-;;; ipv4 --- Useful functions to manipulate IPv4 addresses -*- lexical-binding: t; -*-
+;;; ipv4.el --- Useful functions to manipulate IPv4 addresses -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2026 Coque Couto
 
