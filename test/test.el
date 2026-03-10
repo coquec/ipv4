@@ -1,6 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
 (require 'ert)
+(require 'ipv4)
 
 
 ;; Tests for IPv4 addresses.

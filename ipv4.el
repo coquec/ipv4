@@ -1,9 +1,9 @@
 ;;; ipv4 --- Useful functions to manipulate IPv4 addresses -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2025 Coque Couto
+;; Copyright (C) 2026 Coque Couto
 
 ;; Author: Coque Couto <coque.couto at gmail.com>
-;; Version: 0.3
+;; Version: 0.4
 ;; Package-Requires: ((emacs))
 ;; Keywords: comm lisp tools
 ;; URL: https://github.com/coquec/ipv4
@@ -72,7 +72,7 @@ Return nil otherwise."
 
 Return the private network where IP is located, even for network or
 broadcast addresses, or nil if it is not a private address."
-  (seq-find (lambda (cons)(ipv4-ip-in-network ip cons)) 
+  (seq-find (lambda (cons)(ipv4-ip-in-network ip cons))
             ipv4-private-networks))
 
 (defun ipv4-host-in-network (ip cons)
